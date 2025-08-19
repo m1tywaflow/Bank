@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./index.css"
+import "./index.css";
 import Lenis from "@studio-freight/lenis";
 import Header from "./components/Header";
+import HomePage from "./pages/HomePage";
 
 function App() {
   useEffect(() => {
@@ -26,8 +27,10 @@ function App() {
 
   return (
     <Router>
-      <Header/>
-      <Routes>{/* <Route path="/" element={<HomePage />} /> */}</Routes>
+      <Header />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </Router>
   );
 }
