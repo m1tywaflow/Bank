@@ -2,8 +2,8 @@ import React from "react";
 import logo from "../assets/somethings/logo.png";
 export default function Header() {
   return (
-    <header className="w-full flex justify-center mt-6">
-      <div className="flex items-center justify-between w-[90%] max-w-6xl px-6 py-3 bg-[#111] rounded-full border border-gray-800 shadow-lg">
+    <header className="fixed top-0 left-0 w-full flex justify-center z-50">
+      <div className="flex items-center justify-between w-[90%] max-w-6xl px-6 py-3 mt-4 bg-[#111] rounded-full border border-gray-800 shadow-lg">
         <div className="flex items-center gap-2">
           <img src={logo} alt="" />
           <span className="text-white font-semibold">YourBanK</span>

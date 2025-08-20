@@ -27,7 +27,7 @@ export default function TransactionsCard() {
   }, [index]);
 
   return (
-    <div className="bg-[#1a1a1a] p-6 rounded-2xl w-[350px] shadow-lg">
+    <div className="bg-[#1a1a1a] p-6 rounded-2xl w-[380px] shadow-lg">
       <h2 className="text-white text-lg font-semibold mb-4">
         Your Transactions
       </h2>
