@@ -46,8 +46,6 @@ export default function Testimonials() {
       prev === testimonials.length - 1 ? 0 : prev + 1
     );
   };
-
-  // Автопрокрутка каждые 5 секунд
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
@@ -104,7 +102,7 @@ export default function Testimonials() {
             onClick={prevSlide}
             className="absolute left-0 p-3 rounded-full bg-gray-900 hover:bg-gray-800 transition"
           >
-            <ChevronLeft className="w-6 h-6 text-white" />
+            <ChevronLeft className="w-6 h-6 text-white cursor-pointer" />
           </button>
 
           {/* Animated Testimonial Card */}
@@ -127,13 +125,11 @@ export default function Testimonials() {
               </motion.div>
             </AnimatePresence>
           </div>
-
-          {/* Next Button */}
           <button
             onClick={nextSlide}
             className="absolute right-0 p-3 rounded-full bg-gray-900 hover:bg-gray-800 transition"
           >
-            <ChevronRight className="w-6 h-6 text-white" />
+            <ChevronRight className="w-6 h-6 text-white cursor-pointer" />
           </button>
         </div>
       </div>
