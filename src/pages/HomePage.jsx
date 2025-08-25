@@ -4,6 +4,7 @@ import OurProducts from "../components/HomeP/OurProducts";
 import UseCases from "../components/HomeP/UseCases";
 import OurFeatures from "../components/HomeP/OurFeatures";
 import FAQ from "../components/HomeP/FAQ";
+import OurTestimonials from "../components/HomeP/OurTestimonials";
 const HomePage = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const HomePage = () => {
       <UseCases />
       <OurFeatures />
       <FAQ />
+      <OurTestimonials />
     </div>
   );
 };

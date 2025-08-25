@@ -78,7 +78,7 @@ export default function Features() {
       {/* Основной блок */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
         {/* Левая панель с табами */}
-        <div className="bg-black/40 p-6 rounded-2xl flex flex-col gap-4 h-56">
+        <div className="bg-[#1A1A1A] p-6 rounded-2xl flex flex-col gap-4 h-56">
           {Object.keys(featuresData).map((tab) => (
             <button
               key={tab}

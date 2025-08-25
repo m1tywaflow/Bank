@@ -19,7 +19,6 @@ export default function FAQ() {
       q: "Are my transactions and personal information secure?",
       a: "At YourBank, we prioritize the security of your transactions and personal information. We employ industry-leading encryption and multi-factor authentication to ensure that your data is protected. Additionally, we regularly update our security measures to stay ahead of emerging threats. You can bank with confidence knowing that we have robust security systems in place.",
     },
-    // Дополнительные ↓
     {
       q: "Can I apply for a loan online?",
       a: "Yes, you can apply for a loan online through our secure platform. Fill out the online application form, upload required documents, and our loan officers will contact you with next steps.",
@@ -42,7 +41,6 @@ export default function FAQ() {
 
   return (
     <div className="px-6 max-w-7xl mx-auto py-20">
-      {/* Заголовок */}
       <div className="mb-12 text-center">
         <h1 className="text-4xl font-bold text-white">
           Frequently <span className="text-[#CAFF33]">Asked Questions</span>
@@ -52,8 +50,6 @@ export default function FAQ() {
           <span className="text-white">support@yourbank.com</span>
         </p>
       </div>
-
-      {/* Первые 4 вопроса */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {faqs.slice(0, 4).map((faq, idx) => (
           <div
@@ -65,8 +61,6 @@ export default function FAQ() {
           </div>
         ))}
       </div>
-
-      {/* Скрытые вопросы */}
       <div
         className={`grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-700 ease-in-out overflow-hidden ${
           showAll ? "max-h-[2000px] opacity-100 mt-6" : "max-h-0 opacity-40"
@@ -82,8 +76,6 @@ export default function FAQ() {
           </div>
         ))}
       </div>
-
-      {/* Кнопка */}
       <div className="text-center mt-10">
         <button
           onClick={() => setShowAll(!showAll)}
