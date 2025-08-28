@@ -5,6 +5,7 @@ import Lenis from "@studio-freight/lenis";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
+import CareersPage from "./pages/CareersPage";
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/careers" element={<CareersPage />} />
       </Routes>
       <Footer />
     </Router>
