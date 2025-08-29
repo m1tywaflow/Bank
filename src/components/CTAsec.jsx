@@ -5,7 +5,7 @@ export default function CTAsec() {
   return (
     <div className="w-full flex justify-center items-center py-10">
       <div
-        className="relative rounded-2xl p-6 md:p-10 shadow-lg w-full md:w-[900px] bg-cover bg-center flex flex-col md:flex-row justify-between items-center"
+        className="relative rounded-2xl p-6 md:p-10 shadow-lg w-full md:w-[1250px] bg-cover bg-center flex flex-col md:flex-row justify-between items-center"
         style={{ backgroundImage: `url(${subCont})` }}
       >
         <div className="space-y-4 md:max-w-[70%]">

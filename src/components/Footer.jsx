@@ -1,7 +1,8 @@
 import React from "react";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import { Mail, Phone, MapPin } from "lucide-react";
-import logo from "../assets/somethings/logo.png"; // заменишь на свой путь к лого
+import logo from "../assets/somethings/logo.png";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -15,18 +16,18 @@ export default function Footer() {
 
         {/* Навигация */}
         <nav className="flex space-x-8 text-sm">
-          <a href="#" className="hover:text-[#CAFF33] transition">
+          <Link to="/" className="hover:text-[#CAFF33] transition">
             Home
-          </a>
-          <a href="#" className="hover:text-[#CAFF33] transition">
+          </Link>
+          <Link to="/careers" className="hover:text-[#CAFF33] transition">
             Careers
-          </a>
-          <a href="#" className="hover:text-[#CAFF33] transition">
+          </Link>
+          <Link to="/about" className="hover:text-[#CAFF33] transition">
             About
-          </a>
-          <a href="#" className="hover:text-[#CAFF33] transition">
+          </Link>
+          <Link to="/security" className="hover:text-[#CAFF33] transition">
             Security
-          </a>
+          </Link>
         </nav>
 
         <hr className="w-full border-[#262626]" />
@@ -77,13 +78,16 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center gap-4 bg-[#111111] px-6 py-3 rounded-full text-sm text-gray-400">
             <p>YourBank All Rights Reserved</p>
             <div className="flex space-x-4 text-white">
-              <a href="#" className="hover:text-[#CAFF33] transition">
+              <Link
+                to="/privacy-policy"
+                className="hover:text-[#CAFF33] transition"
+              >
                 Privacy Policy
-              </a>
+              </Link>
               <span className="text-[#262626]">|</span>
-              <a href="#" className="hover:text-[#CAFF33] transition">
+              <Link to="/terms" className="hover:text-[#CAFF33] transition">
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
         </div>
