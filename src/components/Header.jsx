@@ -17,7 +17,7 @@ export default function Header() {
           <Link to="/careers" className="text-white hover:text-lime-400">
             Careers
           </Link>
-          <Link to="/about" className="text-white hover:text-lime-400">
+          <Link to="/about-us" className="text-white hover:text-lime-400">
             About
           </Link>
           <Link to="/security" className="text-white hover:text-lime-400">
