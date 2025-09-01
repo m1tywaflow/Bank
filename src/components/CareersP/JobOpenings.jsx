@@ -45,7 +45,7 @@ export default function JobOpenings() {
 
   return (
     <section className="w-full bg-[#1a1a1a] flex justify-center py-20 px-6">
-      <div className="max-w-6xl w-full">
+      <div className="max-w-7xl w-full">
         <div className="text-center md:text-left">
           <h1 className="text-[#CAFF33] text-4xl font-bold">Job Openings</h1>
           <p className="text-[#B3B3B3] text-sm pt-4 max-w-2xl">

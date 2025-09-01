@@ -4,7 +4,7 @@ import firstImg from "../../assets/About/first.png";
 export default function WelcomeSec() {
   return (
     <section className="w-full bg-[#1a1a1a] flex justify-center py-40 px-6 ">
-      <div className="max-w-6xl w-full bg-[#111] rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row">
+      <div className="max-w-7xl w-full bg-[#111] rounded-2xl overflow-hidden shadow-lg flex flex-col md:flex-row">
         <div className="flex-1 bg-[#111] p-8 md:p-12 flex flex-col justify-center">
           <h1 className="text-3xl md:text-4xl font-bold text-white leading-snug">
             Where Banking Meets{" "}

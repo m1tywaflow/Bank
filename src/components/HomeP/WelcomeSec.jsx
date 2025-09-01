@@ -8,7 +8,6 @@ export default function WelcomeSec() {
   return (
     <section className="bg-[#1a1a1a] min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        {/* ==== Левый блок ==== */}
         <div>
           <div className="bg-[#262626] rounded-full w-fit px-4 py-2 flex items-center space-x-2 mb-6">
             <BadgeCheck className="text-[#CAFF33] w-5 h-5" />
@@ -31,14 +30,12 @@ export default function WelcomeSec() {
             Open Account
           </button>
         </div>
-
-        {/* ==== Правый общий блок ==== */}
         <div className="flex justify-end">
           <div
             className="relative rounded-2xl p-6 shadow-lg w-full md:w-[420px] space-y-6 bg-cover bg-center"
             style={{ backgroundImage: `url(${ContainerBg})` }}
           >
-            {/* 🟢 Monthly Income */}
+
             <div className="absolute -top-5 left-4 flex items-center gap-3 bg-[#22251B] text-white text-sm font-medium px-4 py-2 rounded-xl shadow-md">
               <span className="inline-flex items-center text-black justify-center w-7 h-7 rounded-full border border-black/30 bg-[#CAFF33] font-bold">
                 +
@@ -48,20 +45,15 @@ export default function WelcomeSec() {
                 <div className="text-xs opacity-80">Monthly Income</div>
               </div>
             </div>
-
-            {/* Transactions */}
             <div>
               <TransactionsCard />
             </div>
-
-            {/* Money Exchange */}
             <div>
               <h1 className="text-white text-lg font-semibold mb-4">
                 Money Exchange
               </h1>
 
               <div className="flex gap-3">
-                {/* INR */}
                 <div className="flex-1 flex justify-between items-center bg-neutral-800 rounded-xl p-3">
                   <div className="flex items-center gap-2">
                     <img src={ind} alt="country-ind" className="w-6 h-6" />
@@ -69,8 +61,6 @@ export default function WelcomeSec() {
                   </div>
                   <span className="text-white font-semibold">5,0000</span>
                 </div>
-
-                {/* USD */}
                 <div className="flex-1 flex justify-between items-center bg-neutral-800 rounded-xl p-3">
                   <div className="flex items-center gap-2">
                     <img src={usa} alt="country-usa" className="w-6 h-6" />

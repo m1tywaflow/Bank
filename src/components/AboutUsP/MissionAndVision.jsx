@@ -5,7 +5,7 @@ import visionImg from "../../assets/About/vision.png";
 export default function MissionAndVision() {
   return (
     <section className="bg-[#0C0C0C] text-white px-6 md:px-16 lg:px-28 py-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Заголовок */}
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-semibold text-lime-400 mb-4">

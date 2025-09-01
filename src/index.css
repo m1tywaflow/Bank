@@ -4,3 +4,7 @@
     @apply bg-[#1A1A1A];
   }
 }
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important;
+  -webkit-text-fill-color: white !important;
+}

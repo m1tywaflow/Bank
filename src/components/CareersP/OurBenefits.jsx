@@ -30,7 +30,7 @@ export default function OurBenefits() {
 
   return (
     <section className="w-full bg-[#1a1a1a] flex justify-center py-20 px-6">
-      <div className="max-w-6xl w-full">
+      <div className="max-w-7xl w-full">
         <div className="text-center md:text-left">
           <h1 className="text-white text-4xl font-bold">
             Our <span className="text-[#CAFF33]">Benefits</span>

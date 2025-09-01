@@ -1,36 +1,127 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../assets/somethings/logo.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Header() {
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
+  const [show, setShow] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShow(false);
+      } else {
+        setShow(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const avatarLetter = user?.email
+    ? user.email.charAt(0).toUpperCase()
+    : null;
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    setMenuOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 left-0 w-full flex justify-center z-50">
+    <header
+      className={`fixed top-0 left-0 w-full flex justify-center z-50 transition-transform duration-300 ${
+        show ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="flex items-center justify-between w-[90%] max-w-6xl px-6 py-3 mt-4 bg-[#111] rounded-full border border-gray-800 shadow-lg">
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-8 w-8" />
           <span className="text-white font-semibold">YourBanK</span>
         </div>
-        <nav className="hidden md:flex gap-6 text-sm">
-          <Link to="/" className="text-white hover:text-lime-400">
+
+        <nav className="hidden md:flex gap-6 text-xl">
+          <NavLink
+            to="/home"
+            className={({ isActive }) =>
+              isActive
+                ? "text-lime-400 font-semibold"
+                : "text-white hover:text-lime-400"
+            }
+          >
             Home
-          </Link>
-          <Link to="/careers" className="text-white hover:text-lime-400">
+          </NavLink>
+          <NavLink
+            to="/careers"
+            className={({ isActive }) =>
+              isActive
+                ? "text-lime-400 font-semibold"
+                : "text-white hover:text-lime-400"
+            }
+          >
             Careers
-          </Link>
-          <Link to="/about-us" className="text-white hover:text-lime-400">
+          </NavLink>
+          <NavLink
+            to="/about-us"
+            className={({ isActive }) =>
+              isActive
+                ? "text-lime-400 font-semibold"
+                : "text-white hover:text-lime-400"
+            }
+          >
             About
-          </Link>
-          <Link to="/security" className="text-white hover:text-lime-400">
+          </NavLink>
+          <NavLink
+            to="/security"
+            className={({ isActive }) =>
+              isActive
+                ? "text-lime-400 font-semibold"
+                : "text-white hover:text-lime-400"
+            }
+          >
             Security
-          </Link>
+          </NavLink>
         </nav>
-        <div className="flex items-center gap-4">
-          <button className="text-white text-sm hover:text-lime-400">
-            Sign Up
-          </button>
-          <button className="px-4 py-1.5 rounded-full bg-lime-400 text-black font-medium text-sm hover:bg-lime-300 transition">
-            Login
-          </button>
+
+        <div className="flex items-center gap-4 relative">
+          {avatarLetter ? (
+            <div>
+              <div
+                className="w-10 h-10 rounded-full bg-lime-400 flex items-center justify-center text-black font-bold cursor-pointer hover:bg-lime-300 transition"
+                onClick={() => setMenuOpen((prev) => !prev)}
+              >
+                {avatarLetter}
+              </div>
+              {menuOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg py-2">
+                  <p className="px-4 py-2 text-gray-700 text-sm">
+                    {user.email}
+                  </p>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                  >
+                    Выйти
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              <button className="text-white text-sm hover:text-lime-400 cursor-pointer">
+                Sign Up
+              </button>
+              <button className="px-4 py-1.5 rounded-full bg-lime-400 text-black cursor-pointer font-medium text-sm hover:bg-lime-300 transition">
+                Login
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>

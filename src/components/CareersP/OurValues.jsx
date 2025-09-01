@@ -3,7 +3,7 @@ import React from "react";
 export default function OurValues() {
   return (
     <section className="w-full bg-[#1a1a1a] flex justify-center py-20 px-6">
-      <div className="max-w-6xl w-full">
+      <div className="max-w-7xl w-full">
         <div className="text-center md:text-left max-w-3xl">
           <h1 className="text-4xl font-bold text-white">
             Our <span className="text-lime-400">Values</span>
