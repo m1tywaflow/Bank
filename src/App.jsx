@@ -73,6 +73,8 @@ import SecurityPage from "./pages/SecurityPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import NotFound from "./pages/NotFound";
+import ProfilePage from "./pages/ProfilePage";
+import SettingsPage from "./pages/SettingsPage";
 const ProtectedRoute = ({ user, children }) => {
   if (!user) return <Navigate to="/" replace />;
   return children;
@@ -152,6 +154,22 @@ function App() {
             element={
               <ProtectedRoute user={user}>
                 <AboutUs />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute user={user}>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute user={user}>
+                <SettingsPage />
               </ProtectedRoute>
             }
           />

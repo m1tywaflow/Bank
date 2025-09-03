@@ -10,6 +10,8 @@ export default function Header() {
   const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+  const [nickname, setNickname] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,10 +26,23 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+  useEffect(() => {
+    const storedAvatar = localStorage.getItem("avatar");
+    const storedNickname = localStorage.getItem("nickname");
+    if (storedAvatar) setAvatar(storedAvatar);
+    if (storedNickname) setNickname(storedNickname);
+    const handleStorageChange = () => {
+      const newAvatar = localStorage.getItem("avatar");
+      const newNickname = localStorage.getItem("nickname");
+      setAvatar(newAvatar);
+      setNickname(newNickname);
+    };
 
-  const avatarLetter = user?.email
-    ? user.email.charAt(0).toUpperCase()
-    : null;
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  const avatarLetter = user?.email ? user.email.charAt(0).toUpperCase() : null;
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -90,24 +105,50 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-4 relative">
-          {avatarLetter ? (
+          {user ? (
             <div>
               <div
-                className="w-10 h-10 rounded-full bg-lime-400 flex items-center justify-center text-black font-bold cursor-pointer hover:bg-lime-300 transition"
+                className="w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-lime-400"
                 onClick={() => setMenuOpen((prev) => !prev)}
               >
-                {avatarLetter}
+                {avatar ? (
+                  <img
+                    src={avatar}
+                    alt="User Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-lime-400 flex items-center justify-center text-black font-bold">
+                    {avatarLetter}
+                  </div>
+                )}
               </div>
+
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white rounded-xl shadow-lg py-2">
-                  <p className="px-4 py-2 text-gray-700 text-sm">
-                    {user.email}
+                <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2">
+                  <p className="px-4 py-2 text-gray-700 text-sm font-semibold">
+                    {nickname || user.email}
                   </p>
+
+                  <NavLink
+                    to="/profile"
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Profile
+                  </NavLink>
+                  <NavLink
+                    to="/settings"
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Settings
+                  </NavLink>
                   <button
                     onClick={handleLogout}
                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
                   >
-                    Выйти
+                    Log Out
                   </button>
                 </div>
               )}
