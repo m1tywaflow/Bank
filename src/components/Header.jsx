@@ -13,6 +13,7 @@ export default function Header() {
   const [avatar, setAvatar] = useState(null);
   const [nickname, setNickname] = useState(null);
 
+  // скрытие/показ шапки при скролле
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
@@ -26,11 +27,14 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  // загрузка аватара и ника из localStorage
   useEffect(() => {
     const storedAvatar = localStorage.getItem("avatar");
     const storedNickname = localStorage.getItem("nickname");
     if (storedAvatar) setAvatar(storedAvatar);
     if (storedNickname) setNickname(storedNickname);
+
     const handleStorageChange = () => {
       const newAvatar = localStorage.getItem("avatar");
       const newNickname = localStorage.getItem("nickname");
@@ -41,6 +45,18 @@ export default function Header() {
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
+
+  // 🔽 закрытие меню при скролле
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleScroll = () => {
+      setMenuOpen(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [menuOpen]);
 
   const avatarLetter = user?.email ? user.email.charAt(0).toUpperCase() : null;
 
@@ -56,11 +72,13 @@ export default function Header() {
       }`}
     >
       <div className="flex items-center justify-between w-[90%] max-w-6xl px-6 py-3 mt-4 bg-[#111] rounded-full border border-gray-800 shadow-lg">
+        {/* Логотип */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-8 w-8" />
           <span className="text-white font-semibold">YourBanK</span>
         </div>
 
+        {/* Навигация */}
         <nav className="hidden md:flex gap-6 text-xl">
           <NavLink
             to="/home"
@@ -104,9 +122,11 @@ export default function Header() {
           </NavLink>
         </nav>
 
+        {/* Блок с пользователем */}
         <div className="flex items-center gap-4 relative">
           {user ? (
             <div>
+              {/* Аватар */}
               <div
                 className="w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-lime-400"
                 onClick={() => setMenuOpen((prev) => !prev)}
@@ -124,29 +144,30 @@ export default function Header() {
                 )}
               </div>
 
+              {/* Меню */}
               {menuOpen && (
-                <div className="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg py-2">
-                  <p className="px-4 py-2 text-gray-700 text-sm font-semibold">
+                <div className="absolute right-0 mt-2 min-w-[160px] max-w-[250px] bg-[#111] rounded-xl shadow-lg py-2">
+                  <p className="px-4 py-2 text-white text-sm font-semibold break-words text-center">
                     {nickname || user.email}
                   </p>
 
                   <NavLink
                     to="/profile"
                     onClick={() => setMenuOpen(false)}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-lime-400 hover:bg-gray-700 text-center"
                   >
                     Profile
                   </NavLink>
                   <NavLink
                     to="/settings"
                     onClick={() => setMenuOpen(false)}
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-lime-400 hover:bg-gray-700 text-center"
                   >
                     Settings
                   </NavLink>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                    className="w-full text-center px-4 py-2 text-sm text-red-600 hover:bg-gray-700 "
                   >
                     Log Out
                   </button>
