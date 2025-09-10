@@ -5,6 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/somethings/logo.png";
 import "react-toastify/dist/ReactToastify.css";
 import VirtualBankCard from "../components/ProfileP/VirtualBankCard";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const ProfilePage = () => {
   const auth = getAuth();
@@ -14,13 +22,39 @@ const ProfilePage = () => {
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
+  const [cards, setCards] = useState([
+    {
+      brand: "VISA",
+      last4: "9876",
+      holder: "John Doe",
+      expiry: "09/27",
+      cvv: "123",
+    },
+  ]);
+
+  const [newCard, setNewCard] = useState({
+    brand: "VISA",
+    number: "",
+    expiry: "",
+    cvv: "",
+  });
+
+  const [expenses] = useState([
+    { name: "Shopping", value: 400 },
+    { name: "Food", value: 300 },
+    { name: "Travel", value: 200 },
+    { name: "Subscriptions", value: 100 },
+    { name: "Other", value: 150 },
+  ]);
 
   useEffect(() => {
     const storedNickname = localStorage.getItem("nickname");
     const storedAvatar = localStorage.getItem("avatar");
+    const storedCards = localStorage.getItem("cards");
 
     if (storedNickname) setNickname(storedNickname);
     if (storedAvatar) setAvatar(storedAvatar);
+    if (storedCards) setCards(JSON.parse(storedCards));
 
     setLoading(false);
   }, []);
@@ -37,12 +71,58 @@ const ProfilePage = () => {
   const handleSave = () => {
     localStorage.setItem("nickname", nickname);
     localStorage.setItem("avatar", avatar);
+    localStorage.setItem("cards", JSON.stringify(cards));
 
     toast.success("✅ Changes saved!", {
       position: "bottom-right",
       autoClose: 2000,
       theme: "dark",
     });
+  };
+
+  const handleDeleteCard = (index) => {
+    const updatedCards = cards.filter((_, i) => i !== index);
+    setCards(updatedCards);
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
+
+    toast.info("🗑️ Card deleted", {
+      position: "bottom-right",
+      autoClose: 2000,
+      theme: "dark",
+    });
+  };
+
+  const handleAddCard = (e) => {
+    e.preventDefault();
+    if (!newCard.number || !newCard.expiry || !newCard.cvv) {
+      toast.error("⚠️ Please fill all fields!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
+      return;
+    }
+
+    const last4 = newCard.number.slice(-4);
+    const cardToAdd = {
+      brand: newCard.brand,
+      last4,
+      holder: nickname || "John Doe",
+      expiry: newCard.expiry,
+      cvv: newCard.cvv,
+    };
+
+    const updatedCards = [...cards, cardToAdd];
+    setCards(updatedCards);
+    localStorage.setItem("cards", JSON.stringify(updatedCards));
+
+    toast.success("💳 New card added!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      theme: "dark",
+    });
+
+    setNewCard({ brand: "VISA", number: "", expiry: "", cvv: "" });
   };
 
   if (loading) {
@@ -168,7 +248,7 @@ const ProfilePage = () => {
                 </p>
                 <p>
                   Member since:{" "}
-                  <span className="text-gray-300">January 2024</span>
+                  <span className="text-gray-300">September 2025</span>
                 </p>
                 <p>
                   Plan: <span className="text-gray-300">Free</span>
@@ -183,19 +263,54 @@ const ProfilePage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="flex justify-center w-full"
+                className="flex flex-col items-center gap-6 w-full"
               >
-                <div className="w-full max-w-xs md:max-w-md lg:max-w-lg">
-                  <VirtualBankCard
-                    card={{
-                      brand: "VISA",
-                      last4: "9876",
+                {/* Кнопка Add Card */}
+                <button
+                  onClick={() => {
+                    const newCard = {
+                      brand: Math.random() > 0.5 ? "VISA" : "MasterCard",
+                      last4: String(Math.floor(1000 + Math.random() * 9000)),
                       holder: nickname || "John Doe",
-                      expiry: "09/27",
-                      cvv: "123",
-                    }}
-                  />
-                </div>
+                      expiry: `${String(
+                        Math.floor(1 + Math.random() * 12)
+                      ).padStart(2, "0")}/${
+                        25 + Math.floor(Math.random() * 5)
+                      }`,
+                      cvv: String(Math.floor(100 + Math.random() * 900)),
+                    };
+                    const updatedCards = [...cards, newCard];
+                    setCards(updatedCards);
+                    localStorage.setItem("cards", JSON.stringify(updatedCards));
+
+                    toast.success("💳 New card added!", {
+                      position: "bottom-right",
+                      autoClose: 2000,
+                      theme: "dark",
+                    });
+                  }}
+                  className="px-6 py-3 rounded-full bg-lime-400 text-black font-bold hover:bg-lime-300 transition transform hover:scale-105 shadow-lg"
+                >
+                  ➕ Add Card
+                </button>
+                {cards.length > 0 ? (
+                  cards.map((card, index) => (
+                    <div
+                      key={index}
+                      className="w-full max-w-xs md:max-w-md lg:max-w-lg flex flex-col items-center"
+                    >
+                      <VirtualBankCard card={card} />
+                      <button
+                        onClick={() => handleDeleteCard(index)}
+                        className="mt-3 px-6 py-2 rounded-full bg-red-500 text-white font-bold hover:bg-red-400 transition transform hover:scale-105 shadow-lg"
+                      >
+                        ❌ Delete Card
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-gray-400">You don't have any cards yet.</p>
+                )}
               </motion.div>
             )}
 
@@ -212,7 +327,7 @@ const ProfilePage = () => {
                   Recent Activity
                 </h2>
                 <ul className="space-y-2">
-                  <li>💸 Payment received: $50</li>
+                  <li>💸 Payment received: $0</li>
                   <li>🛒 Purchased: Premium Plan</li>
                   <li>🔑 Password changed</li>
                   <li>📧 Email verified</li>
@@ -221,6 +336,54 @@ const ProfilePage = () => {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Bonuses / Promotions */}
+      <div className="max-w-4xl mx-auto mt-12 bg-[#141414] border border-gray-800 rounded-2xl shadow-lg p-6 md:p-10 text-white">
+        <h2 className="text-2xl font-semibold text-lime-400 mb-4">
+          🎁 Bonuses & Promotions
+        </h2>
+        <ul className="space-y-3">
+          <li>💵 5% Cashback on online purchases</li>
+          <li>✈️ Free airport lounge access (Premium users)</li>
+          <li>🎮 Discounts on gaming subscriptions</li>
+          <li>📈 Referral bonus: Invite a friend and earn $10</li>
+        </ul>
+      </div>
+
+      {/* Financial Statistics */}
+      <div className="max-w-4xl mx-auto mt-12 bg-[#141414] border border-gray-800 rounded-2xl shadow-lg p-6 md:p-10 text-white">
+        <h2 className="text-2xl font-semibold text-lime-400 mb-6">
+          📊 Financial Statistics
+        </h2>
+
+        <div className="h-80">
+          <ResponsiveContainer>
+            <PieChart>
+              <Pie
+                data={expenses}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={120}
+                fill="#a3e635"
+                label
+              >
+                {expenses.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={
+                      ["#a3e635", "#f43f5e", "#f59e0b", "#6366f1"][index % 5]
+                    }
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
