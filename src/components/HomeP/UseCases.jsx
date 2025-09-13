@@ -1,4 +1,7 @@
 import React from "react";
+import Individuals from "../../pages/Individuals";
+import Business from "../../pages/Business";
+import { Link } from "react-router-dom";
 import subContImg from "../../assets/somethings/SubCont.png";
 import managingIcon from "../../assets/UseCases/managingIcon.png";
 import savingIcon from "../../assets/UseCases/savingIcon.png";
@@ -81,9 +84,12 @@ export default function UseCases() {
             </div>
           </div>
 
-          <button className="bg-black px-6 py-2 rounded-full text-white hover:bg-[#2A2A2A] duration-200 transition cursor-pointer">
+          <Link
+            to="/individuals"
+            className="bg-black px-6 py-2 rounded-full text-white hover:bg-[#2A2A2A] duration-200 transition cursor-pointer"
+          >
             Learn More
-          </button>
+          </Link>
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -115,9 +121,12 @@ export default function UseCases() {
             </div>
           </div>
 
-          <button className="bg-black px-6 py-2 rounded-full text-white hover:bg-[#2A2A2A] duration-200 transition cursor-pointer">
+          <Link
+            to="/business"
+            className="bg-black px-6 py-2 rounded-full text-white hover:bg-[#2A2A2A] duration-200 transition cursor-pointer"
+          >
             Learn More
-          </button>
+          </Link>
         </div>
         <div
           className="p-10 rounded-2xl bg-cover"

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/somethings/logo.png";
 import "react-toastify/dist/ReactToastify.css";
 import VirtualBankCard from "../components/ProfileP/VirtualBankCard";
+import FAQ from "../components/HomeP/FAQ";
 import {
   PieChart,
   Pie,
@@ -386,6 +387,7 @@ const ProfilePage = () => {
           </ResponsiveContainer>
         </div>
       </div>
+      <FAQ />
 
       <ToastContainer />
     </div>

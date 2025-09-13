@@ -1,5 +1,6 @@
 import React from "react";
 import subCont from "../assets/somethings/SubCont.png";
+import { Link } from "react-router-dom";
 
 export default function CTAsec() {
   return (
@@ -20,9 +21,12 @@ export default function CTAsec() {
           </p>
         </div>
         <div className="mt-6 md:mt-0">
-          <button className="px-6 py-2 rounded-full bg-[#CAFF33] text-black font-medium hover:bg-[#405507] transition cursor-pointer">
+          <Link
+            to="/profile"
+            className="px-6 py-2 rounded-full bg-[#CAFF33] text-black font-medium hover:bg-[#405507] transition cursor-pointer"
+          >
             Open Account
-          </button>
+          </Link>
         </div>
       </div>
     </div>
