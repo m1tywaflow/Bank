@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { toast, ToastContainer } from "react-toastify";
 import { getAuth } from "firebase/auth";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/somethings/logo.png";
-import "react-toastify/dist/ReactToastify.css";
 import VirtualBankCard from "../components/ProfileP/VirtualBankCard";
 import FAQ from "../components/HomeP/FAQ";
 import {
@@ -23,22 +21,7 @@ const ProfilePage = () => {
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("overview");
-  const [cards, setCards] = useState([
-    {
-      brand: "VISA",
-      last4: "9876",
-      holder: "John Doe",
-      expiry: "09/27",
-      cvv: "123",
-    },
-  ]);
-
-  const [newCard, setNewCard] = useState({
-    brand: "VISA",
-    number: "",
-    expiry: "",
-    cvv: "",
-  });
+  const [cards, setCards] = useState([]);
 
   const [expenses] = useState([
     { name: "Shopping", value: 400 },
@@ -59,72 +42,6 @@ const ProfilePage = () => {
 
     setLoading(false);
   }, []);
-
-  const handleAvatarChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setAvatar(reader.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSave = () => {
-    localStorage.setItem("nickname", nickname);
-    localStorage.setItem("avatar", avatar);
-    localStorage.setItem("cards", JSON.stringify(cards));
-
-    toast.success("✅ Changes saved!", {
-      position: "bottom-right",
-      autoClose: 2000,
-      theme: "dark",
-    });
-  };
-
-  const handleDeleteCard = (index) => {
-    const updatedCards = cards.filter((_, i) => i !== index);
-    setCards(updatedCards);
-    localStorage.setItem("cards", JSON.stringify(updatedCards));
-
-    toast.info("🗑️ Card deleted", {
-      position: "bottom-right",
-      autoClose: 2000,
-      theme: "dark",
-    });
-  };
-
-  const handleAddCard = (e) => {
-    e.preventDefault();
-    if (!newCard.number || !newCard.expiry || !newCard.cvv) {
-      toast.error("⚠️ Please fill all fields!", {
-        position: "bottom-right",
-        autoClose: 2000,
-        theme: "dark",
-      });
-      return;
-    }
-
-    const last4 = newCard.number.slice(-4);
-    const cardToAdd = {
-      brand: newCard.brand,
-      last4,
-      holder: nickname || "John Doe",
-      expiry: newCard.expiry,
-      cvv: newCard.cvv,
-    };
-
-    const updatedCards = [...cards, cardToAdd];
-    setCards(updatedCards);
-    localStorage.setItem("cards", JSON.stringify(updatedCards));
-
-    toast.success("💳 New card added!", {
-      position: "bottom-right",
-      autoClose: 2000,
-      theme: "dark",
-    });
-
-    setNewCard({ brand: "VISA", number: "", expiry: "", cvv: "" });
-  };
 
   if (loading) {
     return (
@@ -148,22 +65,11 @@ const ProfilePage = () => {
       <div className="max-w-4xl mx-auto bg-[#141414] border border-gray-800 rounded-3xl shadow-[0_0_30px_rgba(163,230,53,0.2)] p-8 md:p-12 flex flex-col md:flex-row items-center md:items-start gap-12">
         {/* Avatar */}
         <div className="flex flex-col items-center md:items-start">
-          <div className="relative">
-            <img
-              src={avatar || "https://via.placeholder.com/150"}
-              alt="avatar"
-              className="w-40 h-40 rounded-full object-cover border-4 border-lime-400 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(163,230,53,0.5)]"
-            />
-            <label className="absolute bottom-0 right-0 bg-lime-400 text-black rounded-full px-3 py-1 text-xs font-bold cursor-pointer hover:bg-lime-300 transition">
-              Edit
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleAvatarChange}
-                className="hidden"
-              />
-            </label>
-          </div>
+          <img
+            src={avatar || "https://via.placeholder.com/150"}
+            alt="avatar"
+            className="w-40 h-40 rounded-full object-cover border-4 border-lime-400 shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(163,230,53,0.5)]"
+          />
         </div>
 
         {/* Nickname */}
@@ -171,23 +77,6 @@ const ProfilePage = () => {
           <div className="text-white text-2xl font-semibold text-center md:text-left">
             {nickname || "Your nickname"}
           </div>
-
-          <input
-            type="text"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            placeholder="Edit nickname"
-            className="mt-4 w-full max-w-xs px-4 py-2 rounded-lg border border-gray-700 bg-gray-900 text-white 
-                       focus:outline-none focus:ring-2 focus:ring-lime-400"
-          />
-
-          <button
-            onClick={handleSave}
-            className="mt-6 px-8 py-3 rounded-full bg-lime-400 text-black font-bold hover:bg-lime-300 
-                       transition transform hover:scale-105 shadow-lg"
-          >
-            Save Changes
-          </button>
         </div>
       </div>
 
@@ -241,14 +130,14 @@ const ProfilePage = () => {
                   Account Info
                 </h2>
                 <p>
-                  Email:{" "}
+                  Email:
                   <span className="text-gray-300">{user?.email || "N/A"}</span>
                 </p>
                 <p>
                   Status: <span className="text-green-400">Active</span>
                 </p>
                 <p>
-                  Member since:{" "}
+                  Member since:
                   <span className="text-gray-300">September 2025</span>
                 </p>
                 <p>
@@ -266,34 +155,6 @@ const ProfilePage = () => {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-center gap-6 w-full"
               >
-                {/* Кнопка Add Card */}
-                <button
-                  onClick={() => {
-                    const newCard = {
-                      brand: Math.random() > 0.5 ? "VISA" : "MasterCard",
-                      last4: String(Math.floor(1000 + Math.random() * 9000)),
-                      holder: nickname || "John Doe",
-                      expiry: `${String(
-                        Math.floor(1 + Math.random() * 12)
-                      ).padStart(2, "0")}/${
-                        25 + Math.floor(Math.random() * 5)
-                      }`,
-                      cvv: String(Math.floor(100 + Math.random() * 900)),
-                    };
-                    const updatedCards = [...cards, newCard];
-                    setCards(updatedCards);
-                    localStorage.setItem("cards", JSON.stringify(updatedCards));
-
-                    toast.success("💳 New card added!", {
-                      position: "bottom-right",
-                      autoClose: 2000,
-                      theme: "dark",
-                    });
-                  }}
-                  className="px-6 py-3 rounded-full bg-lime-400 text-black font-bold hover:bg-lime-300 transition transform hover:scale-105 shadow-lg"
-                >
-                  ➕ Add Card
-                </button>
                 {cards.length > 0 ? (
                   cards.map((card, index) => (
                     <div
@@ -301,12 +162,6 @@ const ProfilePage = () => {
                       className="w-full max-w-xs md:max-w-md lg:max-w-lg flex flex-col items-center"
                     >
                       <VirtualBankCard card={card} />
-                      <button
-                        onClick={() => handleDeleteCard(index)}
-                        className="mt-3 px-6 py-2 rounded-full bg-red-500 text-white font-bold hover:bg-red-400 transition transform hover:scale-105 shadow-lg"
-                      >
-                        ❌ Delete Card
-                      </button>
                     </div>
                   ))
                 ) : (
@@ -340,7 +195,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      {/* Bonuses / Promotions */}
+      {/* Bonuses */}
       <div className="max-w-4xl mx-auto mt-12 bg-[#141414] border border-gray-800 rounded-2xl shadow-lg p-6 md:p-10 text-white">
         <h2 className="text-2xl font-semibold text-lime-400 mb-4">
           🎁 Bonuses & Promotions
@@ -358,7 +213,6 @@ const ProfilePage = () => {
         <h2 className="text-2xl font-semibold text-lime-400 mb-6">
           📊 Financial Statistics
         </h2>
-
         <div className="h-80">
           <ResponsiveContainer>
             <PieChart>
@@ -387,9 +241,8 @@ const ProfilePage = () => {
           </ResponsiveContainer>
         </div>
       </div>
-      <FAQ />
 
-      <ToastContainer />
+      <FAQ />
     </div>
   );
 };

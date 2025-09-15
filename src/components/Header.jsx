@@ -13,7 +13,7 @@ export default function Header() {
   const [avatar, setAvatar] = useState(null);
   const [nickname, setNickname] = useState(null);
 
-  // скрытие/показ шапки при скролле
+  // close/show header when scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
@@ -28,7 +28,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // загрузка аватара и ника из localStorage
+  // load nick and ava from the localstorage
   useEffect(() => {
     const storedAvatar = localStorage.getItem("avatar");
     const storedNickname = localStorage.getItem("nickname");
@@ -46,7 +46,7 @@ export default function Header() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // 🔽 закрытие меню при скролле
+  // close menu when scroll down
   useEffect(() => {
     if (!menuOpen) return;
 
@@ -72,13 +72,10 @@ export default function Header() {
       }`}
     >
       <div className="flex items-center justify-between w-[90%] max-w-6xl px-6 py-3 mt-4 bg-[#111] rounded-full border border-gray-800 shadow-lg">
-        {/* Логотип */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-8 w-8" />
           <span className="text-white font-semibold">YourBanK</span>
         </div>
-
-        {/* Навигация */}
         <nav className="hidden md:flex gap-6 text-xl">
           <NavLink
             to="/home"
@@ -121,12 +118,10 @@ export default function Header() {
             Security
           </NavLink>
         </nav>
-
-        {/* Блок с пользователем */}
         <div className="flex items-center gap-4 relative">
           {user ? (
             <div>
-              {/* Аватар */}
+              {/* ava */}
               <div
                 className="w-10 h-10 rounded-full overflow-hidden cursor-pointer border-2 border-lime-400"
                 onClick={() => setMenuOpen((prev) => !prev)}
@@ -143,8 +138,6 @@ export default function Header() {
                   </div>
                 )}
               </div>
-
-              {/* Меню */}
               {menuOpen && (
                 <div className="absolute right-0 mt-2 min-w-[160px] max-w-[250px] bg-[#111] rounded-xl shadow-lg py-2">
                   <p className="px-4 py-2 text-white text-sm font-semibold break-words text-center">
