@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "../assets/somethings/logo.png";
 import VirtualBankCard from "../components/ProfileP/VirtualBankCard";
@@ -77,6 +78,15 @@ const ProfilePage = () => {
           <div className="text-white text-2xl font-semibold text-center md:text-left">
             {nickname || "Your nickname"}
           </div>
+        </div>
+        <div className="flex flex-col items-end ml-auto">
+          <h1 className="text-green-500 font-bold">Online</h1>
+          <Link
+            to="/settings"
+            className="mt-25 px-6 py-2 bg-lime-500 text-black font-medium rounded-xl shadow-md hover:bg-lime-400 transition"
+          >
+            Settings
+          </Link>
         </div>
       </div>
 

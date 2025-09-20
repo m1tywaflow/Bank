@@ -164,10 +164,10 @@ const VirtualBankCard = () => {
               </div>
             </div>
 
-            {/* Premium Label */}
+            {/* Premium Label
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs tracking-widest font-bold text-yellow-400">
               PREMIUM ✦
-            </div>
+            </div> */}
           </div>
 
           {/* Back */}
