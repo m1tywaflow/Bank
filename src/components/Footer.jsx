@@ -22,7 +22,7 @@ export default function Footer() {
           <Link to="/careers" className="hover:text-[#CAFF33] transition">
             Careers
           </Link>
-          <Link to="/about" className="hover:text-[#CAFF33] transition">
+          <Link to="/about-us" className="hover:text-[#CAFF33] transition">
             About
           </Link>
           <Link to="/security" className="hover:text-[#CAFF33] transition">
