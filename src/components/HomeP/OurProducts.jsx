@@ -48,11 +48,11 @@ export default function OurProducts() {
 
   return (
     <div className="px-6 max-w-7xl mx-auto py-20">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl text-white font-bold">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <h1 className="text-3xl text-white font-bold text-center sm:text-left">
           Our <span className="text-[#CAFF33]">Products</span>
         </h1>
-        <div className="bg-[#111] rounded-2xl w-fit p-2 flex gap-2 items-center">
+        <div className="bg-[#111] rounded-2xl w-fit p-2 flex gap-2 mx-auto sm:mx-0">
           <button
             onClick={() => setActiveTab("individuals")}
             className={`rounded-2xl px-4 py-2 font-medium transition ${
@@ -75,22 +75,20 @@ export default function OurProducts() {
           </button>
         </div>
       </div>
-
-      <p className="text-[#B3B3B3] pt-6 max-w-2xl">
+      <p className="text-[#B3B3B3] pt-6 max-w-2xl text-center sm:text-left">
         Discover a range of comprehensive and customizable banking products at
         YourBank, designed to suit your unique financial needs and aspirations
       </p>
-
       <div className="grid md:grid-cols-3 gap-8 mt-12 pt-16 relative">
         <AnimatePresence mode="wait">
           {products.map((item, idx) => (
             <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
+              key={activeTab + "-" + item.title}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="text-center border-r border-[#262626] last:border-none px-6"
+              exit={{ opacity: 0, y: -40 }}
+              transition={{ duration: 0.4, delay: idx * 0.15 }}
+              className="text-center md:border-r border-[#262626] last:border-none px-6"
             >
               <div className="flex justify-center mb-4">
                 <img src={item.img} alt={item.title} className="w-16 h-16" />

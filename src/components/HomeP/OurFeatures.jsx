@@ -62,52 +62,46 @@ export default function Features() {
   };
 
   return (
-    <div className="px-6 max-w-7xl mx-auto py-20">
-      {/* Заголовок */}
-      <div className="mb-10">
-        <h1 className="text-4xl font-bold text-white">
+    <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 sm:py-16 lg:py-20">
+      <div className="mb-8 sm:mb-10">
+        <h1 className="text-3xl sm:text-4xl font-bold text-white">
           Our <span className="text-[#CAFF33]">Features</span>
         </h1>
-        <p className="text-[#B3B3B3] py-4 max-w-3xl">
+        <p className="text-[#B3B3B3] py-3 sm:py-4 max-w-full sm:max-w-3xl text-sm sm:text-base">
           Experience a host of powerful features at YourBank, including seamless
           online banking, secure transactions, and personalized financial
           insights, all designed to enhance your banking experience
         </p>
       </div>
-
-      {/* Основной блок */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-        {/* Левая панель с табами */}
-        <div className="bg-[#1A1A1A] p-6 rounded-2xl flex flex-col gap-4 h-56">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
+        <div className="bg-[#1A1A1A] p-4 sm:p-6 rounded-2xl flex flex-col gap-3 sm:gap-4 h-auto lg:h-56">
           {Object.keys(featuresData).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-3 rounded-full text-sm font-medium transition duration-200 cursor-pointer ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition duration-200 cursor-pointer ${
                 activeTab === tab
                   ? "bg-[#CAFF33] text-black"
-                  : "bg-black text-white hover:bg-[#1a1a1a] "
-              }`}
+                  : "bg-black text-white hover:bg-[#1a1a1a]"
+              } mb-2 sm:mb-3`}
             >
               {tab}
             </button>
           ))}
         </div>
-
-        {/* Правая часть с карточками */}
-        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {featuresData[activeTab].map((item, idx) => (
             <div
               key={idx}
-              className="bg-black/40 p-6 rounded-2xl hover:bg-black/60 transition duration-200 cursor-pointer h-48 flex flex-col justify-between"
+              className="bg-black/40 p-4 sm:p-6 rounded-2xl hover:bg-black/60 transition duration-200 cursor-pointer h-auto sm:h-48 flex flex-col justify-between"
             >
               <div className="flex justify-between items-start">
-                <h3 className="text-white font-semibold text-lg">
+                <h3 className="text-white font-semibold text-base sm:text-lg">
                   {item.title}
                 </h3>
-                <ArrowUpRight className="text-[#CAFF33] w-5 h-5" />
+                <ArrowUpRight className="text-[#CAFF33] w-4 h-4 sm:w-5 sm:h-5" />
               </div>
-              <p className="text-[#B3B3B3] mt-3 text-sm leading-relaxed line-clamp-3">
+              <p className="text-[#B3B3B3] mt-2 sm:mt-3 text-xs sm:text-sm leading-relaxed line-clamp-3">
                 {item.desc}
               </p>
             </div>

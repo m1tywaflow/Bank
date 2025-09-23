@@ -46,6 +46,7 @@ export default function Testimonials() {
       prev === testimonials.length - 1 ? 0 : prev + 1
     );
   };
+
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
@@ -54,25 +55,23 @@ export default function Testimonials() {
   }, [currentIndex, activeTab]);
 
   return (
-    <section className="bg-[#0a0a0a] text-white py-16 px-6 md:px-20">
+    <section className="bg-[#0a0a0a] text-white py-12 sm:py-16 px-4 sm:px-6 md:px-20">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
           Our <span className="text-lime-400">Testimonials</span>
         </h2>
-        <p className="text-gray-400 max-w-2xl mx-auto mb-8">
+        <p className="text-gray-400 max-w-full sm:max-w-2xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
           Discover how YourBank has transformed lives with innovative digital
           solutions and personalized customer service. See why our clients trust
           us for a secure and prosperous financial journey.
         </p>
-
-        {/* Tabs */}
-        <div className="flex justify-center space-x-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12">
           <button
             onClick={() => {
               setActiveTab("individuals");
               setCurrentIndex(0);
             }}
-            className={`px-6 py-2 rounded-full transition ${
+            className={`px-4 sm:px-6 py-2 rounded-full transition text-sm sm:text-base ${
               activeTab === "individuals"
                 ? "bg-lime-400 text-black font-semibold"
                 : "bg-gray-900 text-gray-300"
@@ -85,7 +84,7 @@ export default function Testimonials() {
               setActiveTab("businesses");
               setCurrentIndex(0);
             }}
-            className={`px-6 py-2 rounded-full transition ${
+            className={`px-4 sm:px-6 py-2 rounded-full transition text-sm sm:text-base ${
               activeTab === "businesses"
                 ? "bg-lime-400 text-black font-semibold"
                 : "bg-gray-900 text-gray-300"
@@ -94,19 +93,14 @@ export default function Testimonials() {
             For Businesses
           </button>
         </div>
-
-        {/* Testimonials Slider */}
         <div className="relative flex items-center justify-center">
-          {/* Prev Button */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 p-3 rounded-full bg-gray-900 hover:bg-gray-800 transition"
+            className="absolute left-0 p-2 sm:p-3 rounded-full bg-gray-900 hover:bg-gray-800 transition z-10"
           >
-            <ChevronLeft className="w-6 h-6 text-white cursor-pointer" />
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white cursor-pointer" />
           </button>
-
-          {/* Animated Testimonial Card */}
-          <div className="bg-transparent max-w-xl px-6 text-center min-h-[220px] flex items-center justify-center">
+          <div className="bg-transparent max-w-xl px-4 sm:px-6 text-center min-h-[220px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -115,11 +109,11 @@ export default function Testimonials() {
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.5 }}
               >
-                <Quote className="w-10 h-10 text-lime-400 mx-auto mb-4" />
-                <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-lime-400 mx-auto mb-3 sm:mb-4" />
+                <p className="text-gray-300 text-sm sm:text-base md:text-lg mb-4 sm:mb-6 leading-relaxed">
                   {testimonials[currentIndex].text}
                 </p>
-                <p className="text-lime-400 font-semibold">
+                <p className="text-lime-400 font-semibold text-sm sm:text-base">
                   {testimonials[currentIndex].author}
                 </p>
               </motion.div>
@@ -127,9 +121,9 @@ export default function Testimonials() {
           </div>
           <button
             onClick={nextSlide}
-            className="absolute right-0 p-3 rounded-full bg-gray-900 hover:bg-gray-800 transition"
+            className="absolute right-0 p-2 sm:p-3 rounded-full bg-gray-900 hover:bg-gray-800 transition z-10"
           >
-            <ChevronRight className="w-6 h-6 text-white cursor-pointer" />
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white cursor-pointer" />
           </button>
         </div>
       </div>

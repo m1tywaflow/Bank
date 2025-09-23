@@ -27,11 +27,12 @@ export default function TransactionsCard() {
   }, [index]);
 
   return (
-    <div className="bg-[#1a1a1a] p-6 rounded-2xl w-[380px] shadow-lg">
-      <h2 className="text-white text-lg font-semibold mb-4">
+    <div className="bg-[#1a1a1a] p-4 sm:p-6 rounded-2xl w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg shadow-lg">
+      <h2 className="text-white text-base sm:text-lg md:text-xl font-semibold mb-4 text-center sm:text-left">
         Your Transactions
       </h2>
-      <div className="relative h-[180px] flex flex-col justify-start space-y-2 overflow-hidden">
+
+      <div className="relative h-[160px] sm:h-[180px] flex flex-col justify-start space-y-2 overflow-hidden">
         <AnimatePresence>
           {history.map((tx, i) => (
             <motion.div
@@ -44,24 +45,28 @@ export default function TransactionsCard() {
               }}
               exit={{ y: 40, opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className={`flex items-center justify-between px-4 py-3 rounded-xl ${
+              className={`flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 rounded-xl ${
                 i === 0 ? "bg-[#262626]" : "bg-[#1f1f1f]"
               }`}
             >
               <div className="flex items-center space-x-2">
                 <ArrowDownUp
-                  className={`w-5 h-5 ${
+                  className={`w-4 h-4 sm:w-5 sm:h-5 ${
                     i === 0 ? "text-[#CAFF33]" : "text-gray-500"
                   }`}
                 />
-                <p className={i === 0 ? "text-white" : "text-gray-400"}>
+                <p
+                  className={`text-xs sm:text-sm md:text-base ${
+                    i === 0 ? "text-white" : "text-gray-400"
+                  }`}
+                >
                   Transaction {tx.name}
                 </p>
               </div>
               <p
-                className={
+                className={`text-xs sm:text-sm md:text-base ${
                   i === 0 ? "text-white font-semibold" : "text-gray-400"
-                }
+                }`}
               >
                 {tx.amount}
               </p>
