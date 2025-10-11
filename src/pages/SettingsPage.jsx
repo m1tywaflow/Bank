@@ -73,7 +73,6 @@ const SettingsPage = () => {
           onClick={handleSave}
           className="w-full py-3 rounded-xl bg-lime-400 text-black font-bold shadow-lg hover:bg-lime-300 transition"
         >
-          {" "}
           Save Changes
         </motion.button>
       </motion.div>

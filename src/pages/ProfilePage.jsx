@@ -185,8 +185,33 @@ const ProfilePage = () => {
                         You don't have any cards yet.
                       </p>
                     )}
+
+                    {/* Add Card Button */}
+                    <button
+                      onClick={() => {
+                        const newCard = {
+                          number: `4000 ${Math.floor(
+                            Math.random() * 9000 + 1000
+                          )} **** ****`,
+                          holder: nickname || "User",
+                          expiry: "12/30",
+                          type: "Virtual",
+                        };
+
+                        const updatedCards = [...cards, newCard];
+                        setCards(updatedCards);
+                        localStorage.setItem(
+                          "cards",
+                          JSON.stringify(updatedCards)
+                        );
+                      }}
+                      className="mt-4 px-5 py-2 bg-lime-500 text-black font-medium rounded-xl shadow-md hover:bg-lime-400 transition"
+                    >
+                      ➕ Add Card
+                    </button>
                   </motion.div>
                 )}
+
                 {activeTab === "activity" && (
                   <motion.div
                     key="activity"
